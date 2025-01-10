@@ -1,43 +1,29 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Dashboard.css';
 
-const Dashboard = () => {
-  const [cards, setCards] = useState([]);
-
-  const addCard = () => {
-    setCards([...cards, { id: Date.now(), text: '' }]);
-  };
-
-  const removeCard = (id) => {
-    setCards(cards.filter(card => card.id !== id));
-  };
-
-  const handleTextChange = (id, text) => {
-    setCards(cards.map(card => card.id === id ? { ...card, text } : card));
-  };
-
+// eslint-disable-next-line react/prop-types
+const Dashboard = ({ children }) => {
   return (
-    <div className="dashboard">
-      <button className="add-card-button" onClick={addCard}>+ Add Card</button>
-      <div className="cards-container">
-        {cards.map((card) => (
-          <div className="card" key={card.id}>
-            <div
-              className="card-content"
-              contentEditable="true"
-              suppressContentEditableWarning={true}
-              onInput={(e) => handleTextChange(card.id, e.target.innerText)}
-              placeholder="Type something.."
-            >
-              {card.text || 'Type something...'}
-            </div>
-            <button
-              className="remove-card-button"
-              onClick={() => removeCard(card.id)}
-            >
-              Remove Card
-            </button>
-          </div>
-        ))}
+    <div className="dashboard-container">
+      <div className="sidebar">
+        <h2 className="sidebar-title">Todo App</h2>
+        <ul className="nav flex-column">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/tasks" className="nav-link">Tasks</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/profile" className="nav-link">Profile</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/settings" className="nav-link">Settings</Link>
+          </li>
+        </ul>
+      </div>
+      <div className="content">
+        {children}
       </div>
     </div>
   );

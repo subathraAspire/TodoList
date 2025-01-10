@@ -1,23 +1,22 @@
-import { useState, useEffect } from 'react';
-import Dashboard from '../src/pages/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import Tasks from './pages/Tasks';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
-
   return (
-    <div className="App">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <Dashboard />
-      )}
-    </div>
+    <Router>
+      <Dashboard>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </Dashboard>
+    </Router>
   );
 }
 
